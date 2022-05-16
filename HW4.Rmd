@@ -38,13 +38,13 @@ d_quad_model <- lm(damages ~ warming + I(damages^2), data = damages_df)
 ```
 
 ```{r}
-#plotting scatterplot for damages
-ggplot(data = damages_df, aes(x = damages, y = warming)) + 
-  geom_point() + 
-
-
-#add function to graph still 
+# function and scatter plot graph for damages 
+# ask Sandy if she can help with why line is like that. 
+ggplot(d_quad_model, aes(damages, warming)) + 
+  geom_line() +
+  geom_point()
 ```
+
 
 
 # 2. Use warming.csv and your estimated damage function to predict damages in each year under the baseline climate and the pulse scenario. Make four plots: 
