@@ -34,20 +34,28 @@ The second dataset, “warming.csv” contains estimates of a baseline future cl
 
 ```{r}
 #quadratic damage function 
-d_quad_model <- lm(damages ~ warming + I(damages^2), data = damages_df)
+# the -1 is from Sandy's OH
+# then use predict function
+d_quad_model <- lm(damages ~ warming + I(warming^2) -1, data = damages_df) 
+d_predicted <- d_quad_model$fitted.values
 ```
 
 ```{r}
 # function and scatter plot graph for damages 
-# ask Sandy if she can help with why line is like that. 
-ggplot(d_quad_model, aes(damages, warming)) + 
-  geom_line() +
+# ask Sandy if she can help with why line is like that 
+ggplot(d_quad_model, aes(warming, damages)) + 
+  geom_line(aes(y = d_predicted)) + 
   geom_point()
 ```
 
 
-
 # 2. Use warming.csv and your estimated damage function to predict damages in each year under the baseline climate and the pulse scenario. Make four plots: 
+
+```{r}
+#Use warming data and predict model 
+w_quad_model <- lm(x ~ y + I(output^2) -1, data = warming_df) 
+w_predicted <- w_quad_model$fitted.values
+```
 
 ## (1) damages over time without the pulse
 
