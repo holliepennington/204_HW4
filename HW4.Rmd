@@ -7,7 +7,16 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rootSolve)
+library(janitor)
+library(here)
 ```
+
+```{r}
+damages <- read_csv(here)
+```
+
 ESM 204 HW 4:
 
 Calculating the SCC and policy choice under uncertainty
