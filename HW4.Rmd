@@ -23,18 +23,12 @@ warming <- read_csv(here("data","warming.csv")) %>%
 
 ESM 204 HW 4:
 
-Calculating the SCC and policy choice under uncertainty
+Calculating the SCC and policy choice under uncertainty.
 
-In this homework, you will use new estimates of the future impacts of climate change to inform an
-update to the SCC. We recommend using R and writing functions to compute your answers wherever
-possible.
+In this homework, you will use new estimates of the future impacts of climate change to inform an update to the SCC. We recommend using R and writing functions to compute your answers wherever possible.
 
-Gauchospace houses two datasets. The first, “damages.csv” provides new model estimates of the
-annual total damages from climate change at different levels of warming (in degrees C). 
-The second
-dataset, “warming.csv” contains estimates of a baseline future climate trajectory (in degrees C) until 2100, and a second trajectory that adds a one-time pulse of CO2 today to the atmosphere. The
-pulse is 35 billion tons of carbon, which is roughly equal to annual global emissions. You can think
-of this as a “small” one-time pulse in carbon emissions.
+Gauchospace houses two datasets. The first, “damages.csv” provides new model estimates of the annual total damages from climate change at different levels of warming (in degrees C). 
+The second dataset, “warming.csv” contains estimates of a baseline future climate trajectory (in degrees C) until 2100, and a second trajectory that adds a one-time pulse of CO2 today to the atmosphere. The pulse is 35 billion tons of carbon, which is roughly equal to annual global emissions. You can think of this as a “small” one-time pulse in carbon emissions.
 
 # 1. Using damages.csv, estimate a quadratic damage function relating the dollar value of damages to the change in global mean temperature. Estimate a model with a zero intercept because damages by construction must equal zero when there is no climate change. Plot your estimated damage function, overlaid with a scatterplot of the underlying data.
 
@@ -60,21 +54,19 @@ of this as a “small” one-time pulse in carbon emissions.
 
 # 5. Now suppose there are two possible climate policies that can be pursued. Policy A is business as usual and Policy B is to take immediate and strong action on climate change. Use these facts
 
-• If you undertake Policy A there are two possible outcomes. Either warming will occur as
-in the “baseline” (i.e. “no-pulse”) dataset above (this happens with probability 0.5) or
-warming each year will be 1.5 times that in the “baseline” dataset (with probability 0.5).
-1 In principle, we would like the “pulse” to be a single ton of carbon. But this pulse hardly shows up unless you measure temperature out to 10 decimal points. So we introduce a larger one-time pulse and you can infer the “per-ton” effects by dividing the effect by 35 billion.
-1
-• Under Policy B, warming will continue until 2050 as in the “baseline” dataset, and then
-will stabilize at 1.29 degrees and stay that way forever.
+• If you undertake Policy A there are two possible outcomes. Either warming will occur as in the “baseline” (i.e. “no-pulse”) dataset above (this happens with probability 0.5) or warming each year will be 1.5 times that in the “baseline” dataset (with probability 0.5).
+
+In principle, we would like the “pulse” to be a single ton of carbon. But this pulse hardly shows up unless you measure temperature out to 10 decimal points. So we introduce a larger one-time pulse and you can infer the “per-ton” effects by dividing the effect by 35 billion.
+
+• Under Policy B, warming will continue until 2050 as in the “baseline” dataset, and then will stabilize at 1.29 degrees and stay that way forever.
 • Society is risk neutral
 • Use a discount rate of 2%
-What is the expected present value of damages up to 2100 under Policy A? 
+## What is the expected present value of damages up to 2100 under Policy A? 
 
-What is the expected present value of damages up to 2100 under Policy B? 
+## What is the expected present value of damages up to 2100 under Policy B? 
 
-Suppose undertaking Policy A costs zero and undertaking Policy B costs X. The total cost of a policy is the implementation cost plus expected damages. Make a plot of total cost of Policy A and total cost of Policy B against X. 
+## Suppose undertaking Policy A costs zero and undertaking Policy B costs X. The total cost of a policy is the implementation cost plus expected damages. Make a plot of total cost of Policy A and total cost of Policy B against X. 
 
-Suppose Congress wants to undertake the policy with the lower total cost. Use your graph to advise Congress.
+## Suppose Congress wants to undertake the policy with the lower total cost. Use your graph to advise Congress.
 
 # 6. Now suppose that society is risk averse. How do you think this would change your advice to Congress?
