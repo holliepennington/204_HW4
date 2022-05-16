@@ -14,7 +14,11 @@ library(here)
 ```
 
 ```{r}
-damages <- read_csv(here)
+#read in data 
+damages <- read_csv(here("data","damages.csv")) %>% 
+  clean_names()
+warming <- read_csv(here("data","warming.csv")) %>% 
+  clean_names()
 ```
 
 ESM 204 HW 4:
@@ -26,12 +30,18 @@ update to the SCC. We recommend using R and writing functions to compute your an
 possible.
 
 Gauchospace houses two datasets. The first, “damages.csv” provides new model estimates of the
-annual total damages from climate change at different levels of warming (in degrees C). The second
+annual total damages from climate change at different levels of warming (in degrees C). 
+The second
 dataset, “warming.csv” contains estimates of a baseline future climate trajectory (in degrees C) until 2100, and a second trajectory that adds a one-time pulse of CO2 today to the atmosphere. The
 pulse is 35 billion tons of carbon, which is roughly equal to annual global emissions. You can think
 of this as a “small” one-time pulse in carbon emissions.
 
 # 1. Using damages.csv, estimate a quadratic damage function relating the dollar value of damages to the change in global mean temperature. Estimate a model with a zero intercept because damages by construction must equal zero when there is no climate change. Plot your estimated damage function, overlaid with a scatterplot of the underlying data.
+
+```{r}
+
+```
+
 
 
 # 2. Use warming.csv and your estimated damage function to predict damages in each year under the baseline climate and the pulse scenario. Make four plots: 
