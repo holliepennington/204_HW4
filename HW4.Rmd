@@ -15,9 +15,9 @@ library(here)
 
 ```{r}
 #read in data 
-damages <- read_csv(here("data","damages.csv")) %>% 
+damages_df <- read_csv(here("data","damages.csv")) %>% 
   clean_names()
-warming <- read_csv(here("data","warming.csv")) %>% 
+warming_df <- read_csv(here("data","warming.csv")) %>% 
   clean_names()
 ```
 
@@ -33,9 +33,18 @@ The second dataset, “warming.csv” contains estimates of a baseline future cl
 # 1. Using damages.csv, estimate a quadratic damage function relating the dollar value of damages to the change in global mean temperature. Estimate a model with a zero intercept because damages by construction must equal zero when there is no climate change. Plot your estimated damage function, overlaid with a scatterplot of the underlying data.
 
 ```{r}
-
+#quadratic damage function 
+d_quad_model <- lm(damages ~ warming + I(damages^2), data = damages_df)
 ```
 
+```{r}
+#plotting scatterplot for damages
+ggplot(data = damages_df, aes(x = damages, y = warming)) + 
+  geom_point() + 
+
+
+#add function to graph still 
+```
 
 
 # 2. Use warming.csv and your estimated damage function to predict damages in each year under the baseline climate and the pulse scenario. Make four plots: 
