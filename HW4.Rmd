@@ -47,13 +47,12 @@ ggplot(d_quad_model, aes(warming, damages)) +
   geom_point()
 ```
 
-
 # 2. Use warming.csv and your estimated damage function to predict damages in each year under the baseline climate and the pulse scenario. Make four plots: 
 
 ## (1) damages over time without the pulse
 
 ```{r}
-#maybe we should merge datasets 
+#maybe we should merge data sets? 
 warming <- rename(warming_df, warming = warming_baseline)
 
 merged_df <- left_join(warming, damages_df, by = "warming")
@@ -69,7 +68,7 @@ w_predicted <- w_quad_model$fitted.values
 
 ```{r}
 #create plot 
-ggplot(merged_df, aes(year, warming)) + 
+ggplot(warming_df, aes(year, warming)) + 
   geom_point() + 
   geom_line(data = damages_df, aes(d_predicted))
 #  I need to find a way to add this d_predicted function to the graph 
