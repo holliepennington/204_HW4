@@ -67,9 +67,11 @@ return(dam)}
 mutated_df <- warming_df %>% 
   mutate(dam_baseline = dam_function(warming_baseline)) %>% 
     mutate(dam_pulse = dam_function(warming_pulse)) %>% 
-    mutate(dam_add = (dam_pulse - dam_baseline))
+    mutate(dam_add = (dam_pulse - dam_baseline)) %>% 
+    mutate(ton_dam = (dam_add/35000000))
 #the mutated_df has the additional columns created from running the damage function
-#dam_add is the additional damages caused by the pulse for 2(3). 
+#dam_add is the additional damages caused by the pulse for 2(3).
+#ton_dam is the conversion for 2(4)
 ```
 
 ## (1) damages over time without the pulse
@@ -110,12 +112,16 @@ ggplot(mutated_df, aes(x = year, y = dam_add)) +
 ## (4) the difference in damages over time from the pulse per ton of CO2 (you can assume that each ton of the pulse causes the same amount of damage).
 
 ```{r}
-#do a conversion from 35billion tons to 1tons for $damages/tonCO2
+#do a conversion from $damages/35_billion_tons_co2 to $damages/ton_CO2 -- Hollie completed in earlier code chunk as ton_dam
+ggplot(mutated_df, aes(x = year, y = ton_dam)) + 
+  geom_line() + 
+  geom_point()
 ```
 
 # 3. The SCC is the present discounted value of the stream of future damages caused by one additional ton of CO2. The Obama Administration used a discount rate of 3% to discount damages. Recently, New York State used a discount rate of 2%. Calculate and make a plot of the SCC (y-axis) against the discount rate (x-axis) for a reasonable range of discount rates. Explain the intuition for how the discount rate affects the SCC.
 
 ```{r}
+#office hour notes
 #the scc is not the baseline -- it is the marginal 
 #Scc = present discounted value 
 #scc = summation: T=2100(top) Epsilon t=2022(bottom)(damages from pulse^t)/(1+r)^t
