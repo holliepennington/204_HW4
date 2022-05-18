@@ -50,15 +50,6 @@ ggplot(d_quad_model, aes(warming, damages)) +
 
 # 2. Use warming.csv and your estimated damage function to predict damages in each year under the baseline climate and the pulse scenario. Make four plots: 
 
-## (1) damages over time without the pulse
-
-```{r}
-#Use warming data and predict model 
-#not used for the graph but I am keeping it encase I need to make one later
-w_quad_model <- lm(year ~ warming_baseline + I(warming_baseline^2) -1, data = warming_df) 
-w_predicted <- w_quad_model$fitted.values
-```
-
 ```{r}
 #office hour notes: 
 #use coefficients from d_quad and multiple by warming baseline  
@@ -71,10 +62,23 @@ dam_function <-function(warming)
   d_quad_model$coefficients[1] * (warming)
 return(dam)}
 
-#calculate baseline damages 
+#calculate warming damages for baseline and pulse 
 
 mutated_df <- warming_df %>% 
-  mutate(dam_baseline = dam_function(warming_baseline))
+  mutate(dam_baseline = dam_function(warming_baseline)) %>% 
+    mutate(dam_pulse = dam_function(warming_pulse)) %>% 
+    mutate(dam_add = (dam_pulse - dam_baseline))
+#the mutated_df has the additional columns created from running the damage function
+#dam_add is the additional damages caused by the pulse for 2(3). 
+```
+
+## (1) damages over time without the pulse
+
+```{r}
+#Use warming data and predict model 
+#not used for the graph but I am keeping it encase I need to make one later
+w_quad_model <- lm(year ~ warming_baseline + I(warming_baseline^2) -1, data = warming_df) 
+w_predicted <- w_quad_model$fitted.values
 ```
 
 ```{r}
@@ -86,11 +90,21 @@ ggplot(mutated_df, aes(x= year, y = dam_baseline)) +
 
 ## (2) damages over time with the pulse
 
+
+```{r}
+#create plot 
+ggplot(mutated_df, aes(x= year, y = dam_pulse)) + 
+  geom_point() + 
+  geom_line()
+```
+
 ## (3) the difference in damages over time that arises from the pulse
 ```{r}
-#subtract damages_pulse - damages_baseline
-#mutate 
-#this is damages of additional pulse over time 
+#use dam_add in mutated_df to plot 
+
+ggplot(mutated_df, aes(x = year, y = dam_add)) + 
+  geom_line() + 
+  geom_point()
 ```
 
 ## (4) the difference in damages over time from the pulse per ton of CO2 (you can assume that each ton of the pulse causes the same amount of damage).
