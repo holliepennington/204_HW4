@@ -53,11 +53,7 @@ ggplot(d_quad_model, aes(warming, damages)) +
 ## (1) damages over time without the pulse
 
 ```{r}
-#maybe we should merge data sets? 
-warming <- rename(warming_df, warming = warming_baseline)
 
-merged_df <- left_join(warming, damages_df, by = "warming")
-#this did not work 
 ```
 
 ```{r}
@@ -72,6 +68,9 @@ w_predicted <- w_quad_model$fitted.values
 #use coefficients from d_quad and multiple by warming baseline  
 #use mutate to create damages column in warming.csv
 #do the same thing when it is time to the pulse 
+dam_function <-function(warming)
+{dam <- (d_quad_model$coefficients[2]) *(warming^2) + 
+  d_qaud_model$coefficients[1]}
 
 
 ```
