@@ -53,10 +53,6 @@ ggplot(d_quad_model, aes(warming, damages)) +
 ## (1) damages over time without the pulse
 
 ```{r}
-
-```
-
-```{r}
 #Use warming data and predict model 
 #not used for the graph but I am keeping it encase I need to make one later
 w_quad_model <- lm(year ~ warming_baseline + I(warming_baseline^2) -1, data = warming_df) 
@@ -64,23 +60,28 @@ w_predicted <- w_quad_model$fitted.values
 ```
 
 ```{r}
-#office hour coding 
+#office hour notes: 
 #use coefficients from d_quad and multiple by warming baseline  
 #use mutate to create damages column in warming.csv
 #do the same thing when it is time to the pulse 
+
+#create damages function 
 dam_function <-function(warming)
 {dam <- (d_quad_model$coefficients[2]) *(warming^2) + 
-  d_qaud_model$coefficients[1]}
+  d_quad_model$coefficients[1] * (warming)
+return(dam)}
 
+#calculate baseline damages 
 
+mutated_df <- warming_df %>% 
+  mutate(dam_baseline = dam_function(warming_baseline))
 ```
 
 ```{r}
 #create plot 
-ggplot(warming_df, aes(year, warming_baseline)) + 
+ggplot(mutated_df, aes(x= year, y = dam_baseline)) + 
   geom_point() + 
-  geom_line(aes(d_quad_model))
-#  I need to find a way to add this d_predicted function to the graph 
+  geom_line()
 ```
 
 ## (2) damages over time with the pulse
