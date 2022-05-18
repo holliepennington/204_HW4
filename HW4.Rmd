@@ -34,10 +34,11 @@ The second dataset, “warming.csv” contains estimates of a baseline future cl
 
 ```{r}
 #quadratic damage function 
-# the -1 is from Sandy's OH
+# the -1 is from Sandy's OH it is to make the model start at zero
 # then use predict function
 d_quad_model <- lm(damages ~ warming + I(warming^2) -1, data = damages_df) 
 d_predicted <- d_quad_model$fitted.values
+d_quad_model
 ```
 
 ```{r}
@@ -67,26 +68,51 @@ w_predicted <- w_quad_model$fitted.values
 ```
 
 ```{r}
+#office hour coding 
+#use coefficients from d_quad and multiple by warming baseline  
+#use mutate to create damages column in warming.csv
+#do the same thing when it is time to the pulse 
+
+
+```
+
+```{r}
 #create plot 
-ggplot(warming_df, aes(year, warming)) + 
+ggplot(warming_df, aes(year, warming_baseline)) + 
   geom_point() + 
-  geom_line(data = damages_df, aes(d_predicted))
+  geom_line(aes(d_quad_model))
 #  I need to find a way to add this d_predicted function to the graph 
 ```
 
 ## (2) damages over time with the pulse
 
 ## (3) the difference in damages over time that arises from the pulse
+```{r}
+#subtract damages_pulse - damages_baseline
+#mutate 
+#this is damages of additional pulse over time 
+```
 
 ## (4) the difference in damages over time from the pulse per ton of CO2 (you can assume that each ton of the pulse causes the same amount of damage).
+
+```{r}
+#do a conversion from 35billion tons to 1tons for $damages/tonCO2
+```
 
 # 3. The SCC is the present discounted value of the stream of future damages caused by one additional ton of CO2. The Obama Administration used a discount rate of 3% to discount damages. Recently, New York State used a discount rate of 2%. Calculate and make a plot of the SCC (y-axis) against the discount rate (x-axis) for a reasonable range of discount rates. Explain the intuition for how the discount rate affects the SCC.
 
 ```{r}
-
+#the scc is not the baseline -- it is the marginal 
+#Scc = present discounted value 
+#scc = summation: T=2100(top) Epsilon t=2022(bottom)(damages from pulse^t)/(1+r)^t
+#then plot r (x axis) and scc (y axis)
 ```
 
 # 4. The National Academies of Sciences, Engineering, and Medicine advised the government in a 2017 report to use the Ramsey Rule when discounting within the SCC calculation: r = ρ + ηg Using ρ = 0.001, η = 2, and g = 0.01, what is the SCC? Locate this point on your graph from above.
+
+```{r}
+
+```
 
 # 5. Now suppose there are two possible climate policies that can be pursued. Policy A is business as usual and Policy B is to take immediate and strong action on climate change. Use these facts
 
