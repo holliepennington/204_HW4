@@ -68,7 +68,7 @@ mutated_df <- warming_df %>%
   mutate(dam_baseline = dam_function(warming_baseline)) %>% 
     mutate(dam_pulse = dam_function(warming_pulse)) %>% 
     mutate(dam_add = (dam_pulse - dam_baseline)) %>% 
-    mutate(ton_dam = (dam_add/35000000))
+    mutate(ton_dam = (dam_add/35000000000))
 #the mutated_df has the additional columns created from running the damage function
 #dam_add is the additional damages caused by the pulse for 2(3).
 #ton_dam is the conversion for 2(4)
