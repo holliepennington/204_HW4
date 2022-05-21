@@ -1,6 +1,6 @@
 ---
 title: "HW 4"
-author: "Hollie Pennington"
+author: "Grace Bianchi, Andrea Cornelius, Hollie Pennington"
 date: '2022-05-16'
 output: html_document
 ---
