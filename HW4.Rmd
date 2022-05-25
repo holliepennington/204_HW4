@@ -36,10 +36,10 @@ d_quad_model
 
 ```{r}
 # function and scatter plot graph for damages
-ggplot(d_quad_model, aes(warming, damages)) + 
+ggplot(d_quad_model, aes(x = warming, y = damages)) + 
   geom_line(aes(y = d_predicted)) + 
   geom_point() +
-  labs(x= "Global warming (degrees C)", y = "Damages ($)") +
+  labs(x= "Global warming (degrees C)", y = "Damages (USD)") +
   theme_minimal()
 ```
 
@@ -78,10 +78,10 @@ w_predicted <- w_quad_model$fitted.values
 
 ```{r}
 #create plot 
-ggplot(mutated_df, aes(x= year, y = dam_baseline)) + 
+ggplot(mutated_df, aes(x= year, y = dam_baseline/1e12)) + 
   geom_point() + 
   geom_line() +
-  labs(x = "Year", y =  "Damages ($)", title = "Baseline Damages (without pulse)")
+  labs(x = "Year", y =  "Damages (trillions USD)", title = "Baseline Damages (without pulse)")
 ```
 
 #### (2) damages over time with the pulse
@@ -89,19 +89,19 @@ ggplot(mutated_df, aes(x= year, y = dam_baseline)) +
 
 ```{r}
 #create plot 
-ggplot(mutated_df, aes(x= year, y = dam_pulse)) + 
+ggplot(mutated_df, aes(x= year, y = dam_pulse/1e12)) + 
   geom_point() + 
   geom_line() +
-  labs(x = "Year", y =  "Damages($)", title = "Damages with pulse")
+  labs(x = "Year", y =  "Damages (trillions $)", title = "Damages with pulse")
 ```
 
 #### (3) the difference in damages over time that arises from the pulse
 ```{r}
 #use dam_add in mutated_df to plot 
-ggplot(mutated_df, aes(x = year, y = dam_add)) + 
+ggplot(mutated_df, aes(x = year, y = dam_add/1e9)) + 
   geom_line() + 
   geom_point() +
-   labs(x = "Year", y =  "Damage Added (Tons of CO2)", title = "Additional damages with pulse")
+   labs(x = "Year", y =  "Damage Added (Billion tons of CO2)", title = "Additional damages with pulse")
 ```
 
 #### (4) the difference in damages over time from the pulse per ton of CO2 (you can assume that each ton of the pulse causes the same amount of damage).
@@ -157,7 +157,7 @@ scc_table <- data.frame(scc_vector, dr)
 ```{r}
 ggplot(data = scc_table, aes(x = dr, y = scc_vector)) +
     geom_line() +
-  labs(x = "Discount rate (%)", y = "Social cost of carbon") +
+  labs(x = "Discount rate (%)", y = "Social cost of carbon (USD/ton CO2)") +
   theme_minimal() 
 ```
 
@@ -179,7 +179,7 @@ scc2.1 <- sum(scc$dr2.1)
 ```{r}
 ggplot(data = scc_table, aes(x = dr, y = scc_vector)) +
     geom_line() +
-  labs(x = "Discount rate (%)", y = "Social cost of carbon ($/ton)") +
+  labs(x = "Discount rate (%)", y = "Social cost of carbon ($/ton CO2)", title = ) +
   theme_minimal() +
   geom_point(aes(y = scc2.1, x = r), size = 7, shape = 3) +
   geom_text(aes(y = scc2.1, x = 4, label = "SCC = $71/ton at a discount rate of 2.1%."), size = 5, shape = 8)
@@ -226,7 +226,6 @@ Expected present value of damages up to 2100 under **Policy B**: $`r round(b_pre
 
 ```{r}
 
-
 cost <- c(0, 1e15, 2e15, 3e15, 4e15, 5e15, 6e15, 7e15, 8e15, 9e15)
 cost_df <- data.frame(cost)
 
@@ -235,15 +234,20 @@ policy_b_model <- function(x){b_present_value + x}
 policy_a_model <- function(x){a_present_value}
 # make a vector of potential costs
 
-
+# graph 
 ggplot() +
-  stat_function(fun = policy_b_model) +
-  stat_function(fun = policy_a_model) +
+  scale_color_manual(values = c("cornflowerblue", "purple")) +
+  stat_function(fun = policy_b_model, aes(color = "Policy B")) +
+  stat_function(fun = policy_a_model, aes(color = "Policy A")) +
   ylim(0, 6e+15) +
-  xlim(0, 5e+15)
+  xlim(0, 5e+15) +
+  labs(x = "Implementation Cost ($)",
+       y = "Total Cost ($)",
+       title = "Cost Comparison of Policy A and B")
 ```
 
 #### Suppose Congress wants to undertake the policy with the lower total cost. Use your graph to advise Congress.
+Based on the total cost and implementation cost, Congress should pursue Policy B if it is under $2000 trillion.
 
 ### 6. Now suppose that society is risk averse. How do you think this would change your advice to Congress?
 
