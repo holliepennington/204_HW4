@@ -250,6 +250,6 @@ ggplot() +
 Based on the total cost and implementation cost, Congress should pursue Policy B if it is under $2000 trillion.
 
 ### 6. Now suppose that society is risk averse. How do you think this would change your advice to Congress?
-
+Policy B calls for swift action to take place thus it is the action that is most risk averse. It is the most risk averse because climate change damages increase with time, if society acts faster there will be less damages and less risk.
 
 
