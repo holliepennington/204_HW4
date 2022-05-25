@@ -6,14 +6,14 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(tidyverse)
 library(rootSolve)
 library(janitor)
 library(here)
 ```
 
-```{r}
+```{r, echo = FALSE}
 #read in data 
 damages_df <- read_csv(here("data","damages.csv")) %>% 
   clean_names() %>% 
@@ -23,8 +23,9 @@ warming_df <- read_csv(here("data","warming.csv")) %>%
   clean_names() 
 ```
 
+### 1. Using damages.csv, estimate a quadratic damage function relating the dollar value of damages to the change in global mean temperature. Estimate a model with a zero intercept because damages by construction must equal zero when there is no climate change. Plot your estimated damage function, overlaid with a scatterplot of the underlying data.
 
-```{r}
+```{r, echo = FALSE}
 #quadratic damage function 
 # the -1 is from Sandy's OH it is to make the model start at zero
 # then use predict function
@@ -34,7 +35,7 @@ d_predicted <- d_quad_model$fitted.values
 d_quad_model
 ```
 
-```{r}
+```{r, echo = FALSE}
 # function and scatter plot graph for damages
 ggplot(d_quad_model, aes(x = warming, y = damages)) + 
   geom_line(aes(y = d_predicted)) + 
@@ -45,7 +46,7 @@ ggplot(d_quad_model, aes(x = warming, y = damages)) +
 
 ### 2. Use warming.csv and your estimated damage function to predict damages in each year under the baseline climate and the pulse scenario. Make four plots: 
 
-```{r}
+```{r, echo = FALSE}
 #office hour notes: 
 #use coefficients from d_quad and multiply by warming baseline  
 #use mutate to create damages column in warming.csv
